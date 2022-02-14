@@ -2,7 +2,8 @@ package projekt.food;
 
 import java.util.function.UnaryOperator;
 
-public interface Pasta extends Saucable{
+public interface Pasta extends Saucable {
+	
 	/**
 	 * Returns the thickness of the pasta noodles
 	 * @return thickness of the pasta noodles

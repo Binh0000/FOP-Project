@@ -3,6 +3,7 @@ package projekt.food;
 import java.util.function.UnaryOperator;
 
 public interface Saucable {
+	
 	/**
 	 * Returns which type of sauce this food has
 	 * @return type of sauce

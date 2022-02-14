@@ -2,7 +2,8 @@ package projekt.food;
 
 import java.util.function.UnaryOperator;
 
-public interface Pizza extends Saucable{
+public interface Pizza extends Saucable {
+	
 	/**
 	 * Returns the diameter of the pizza
 	 * @return diameter of the pizza
@@ -11,7 +12,6 @@ public interface Pizza extends Saucable{
 	
 	/**
 	 * 
-	 * @author phian_1uq03zl
 	 *
 	 */
 	interface Config extends Saucable.Config {

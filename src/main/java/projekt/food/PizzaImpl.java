@@ -5,6 +5,7 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
 public class PizzaImpl extends AbstractSaucable implements Pizza {
+	
 	private double diameter;
 	
 	/**
