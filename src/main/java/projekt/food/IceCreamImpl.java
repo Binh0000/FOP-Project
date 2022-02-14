@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
+import projekt.food.Food.Variant;
+
 public class IceCreamImpl extends AbstractFood implements IceCream {
 	
 	private String flavor;
@@ -12,8 +14,8 @@ public class IceCreamImpl extends AbstractFood implements IceCream {
 	/**
 	 * Constructs an object that is an implementation of the interface IceCream
 	 */
-	public IceCreamImpl() {
-		super();
+	public IceCreamImpl(BigDecimal price, double weight, IceCream.Variant foodVariant, List<? extends Extra<?>> extras, String flavor) {
+		super(price, weight, foodVariant ,extras);
 	}
 	
 	@Override

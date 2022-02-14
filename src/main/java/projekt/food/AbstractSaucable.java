@@ -6,8 +6,13 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
 public abstract class AbstractSaucable extends AbstractFood implements Saucable {
+
+	private String sauce;	
 	
-	private String sauce;
+	public AbstractSaucable(BigDecimal price, double weight, Saucable.Variant foodVariant, List<? extends Extra<?>> extras, String sauce) {
+		super(price, weight, foodVariant, extras);
+		this.sauce = sauce;
+	}
 	
 	/**
 	 * Returns the private variable sauce

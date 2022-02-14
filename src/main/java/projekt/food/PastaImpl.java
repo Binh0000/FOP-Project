@@ -12,8 +12,9 @@ public class PastaImpl extends AbstractSaucable implements Pasta {
 	/**
 	 * Constructs an object that is an implementation of the interface Pasta
 	 */
-	public PastaImpl() {
-		super();
+	public PastaImpl(BigDecimal price, double weight, Pasta.Variant foodVariant, List<? extends Extra<?>> extras, String sauce, double thickness) {
+		super(price, weight, foodVariant, extras, sauce);
+		this.thickness = thickness;
 	}
 
 	@Override

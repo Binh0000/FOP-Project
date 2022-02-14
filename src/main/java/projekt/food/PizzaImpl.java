@@ -12,8 +12,9 @@ public class PizzaImpl extends AbstractSaucable implements Pizza {
 	/**
 	 * Constructs an object that is an implementation of the interface Pizza
 	 */
-	public PizzaImpl(double diameter) {
-		super();
+	public PizzaImpl(BigDecimal price, double weight, Pizza.Variant foodVariant, List<? extends Extra<?>> extras, String sauce ,double diameter) {
+		super(price, weight, foodVariant, extras, sauce);
+		this.diameter = diameter;
 	}
 
 	@Override

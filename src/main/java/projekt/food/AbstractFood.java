@@ -12,6 +12,13 @@ public class AbstractFood implements Food{
 	private Variant<?, ?> foodVariant;
 	private List<? extends Extra<?>> extras;
 	
+	public AbstractFood(BigDecimal price, double weight, Variant<?, ?> foodVariant, List<? extends Extra<?>> extras) {
+		this.price = price;
+		this.weight = weight;
+		this.foodVariant = foodVariant;
+		this.extras = extras;
+	}
+	
 	@Override
 	/**
 	 * 
