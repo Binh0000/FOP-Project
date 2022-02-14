@@ -7,5 +7,5 @@ public interface DistanceCalculator {
 	 * @param l2 location 2
 	 * @return distance between l1 and l2
 	 */ 
-	double calculateDistance(Location l1, Location l2);
+	double calculateDistance(Location l1, Location l2); //asdfghjkl;lkjf;asdlhfasd;jkfndf 
 }
