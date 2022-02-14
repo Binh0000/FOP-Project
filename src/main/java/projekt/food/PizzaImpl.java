@@ -26,72 +26,26 @@ public class PizzaImpl extends AbstractSaucable implements Pizza {
 		return diameter;
 	}
 	
-	private static class Config implements Pizza.Config {
-		private List<UnaryOperator<BigDecimal>> priceMutators;
-		private List<DoubleUnaryOperator> weightMutators;
-		private List<UnaryOperator<String>> sauceMutators;
+	private static class Config extends AbstractSauceConfig implements Pizza.Config {
+		
 		private List<DoubleUnaryOperator> diameterMutators;
-
-		@Override
-		/**
-		 * 
-		 */
-		public void sauce(UnaryOperator<String> op) {
-			sauceMutators.add(op);			
+		
+		private Config() {
+			super();
 		}
 
 		@Override
 		/**
 		 * 
 		 */
-		public UnaryOperator<String> getSauceMutator() {
-			return sauceMutators.stream()
-								.reduce((n -> n), 
-										(op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			priceMutators.add(priceMutator);
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public UnaryOperator<BigDecimal> getPriceMutator() {			
-			return priceMutators.stream()														  
-					 			 .reduce((n -> n),
-					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public void weight(DoubleUnaryOperator weightMutator) {
-			weightMutators.add(weightMutator);
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public DoubleUnaryOperator getWeightMutator() {
-			return weightMutators.stream()														  
-					 			 .reduce((n -> n),
-					 					 (op1, op2) -> op1.compose(op2));
-		}		
-
-		@Override
 		public void diameter(DoubleUnaryOperator op) {
 			diameterMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getDiameterMutator() {
 			return diameterMutators.stream()														  
 		 			 .reduce((n -> n),

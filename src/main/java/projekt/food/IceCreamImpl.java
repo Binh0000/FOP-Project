@@ -27,47 +27,14 @@ public class IceCreamImpl extends AbstractFood implements IceCream {
 		return flavor;
 	}
 	
-	private static class Config implements IceCream.Config {
-		private List<UnaryOperator<BigDecimal>> priceMutators;
-		private List<DoubleUnaryOperator> weightMutators;
+	private static class Config extends AbstractFoodConfig implements IceCream.Config {
+		
 		private List<UnaryOperator<String>> flavorMutators;
-
-		@Override
-		/**
-		 * 
-		 */
-		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			priceMutators.add(priceMutator);
+		
+		private Config() {
+			super();
 		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public UnaryOperator<BigDecimal> getPriceMutator() {			
-			return priceMutators.stream()														  
-					 			 .reduce((n -> n),
-					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public void weight(DoubleUnaryOperator weightMutator) {
-			weightMutators.add(weightMutator);
-		}
-
-		@Override
-		/**
-		 * 
-		 */
-		public DoubleUnaryOperator getWeightMutator() {
-			return weightMutators.stream()														  
-					 			 .reduce((n -> n),
-					 					 (op1, op2) -> op1.compose(op2));
-		}		
-
+		
 		@Override
 		/**
 		 * 
