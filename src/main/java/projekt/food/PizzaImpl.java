@@ -1,6 +1,7 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
@@ -25,45 +26,75 @@ public class PizzaImpl extends AbstractSaucable implements Pizza {
 	}
 	
 	private static class Config implements Pizza.Config {
+		private List<UnaryOperator<BigDecimal>> priceMutators;
+		private List<DoubleUnaryOperator> weightMutators;
+		private List<UnaryOperator<String>> sauceMutators;
+		private List<DoubleUnaryOperator> diameterMutators;
 
 		@Override
+		/**
+		 * 
+		 */
 		public void sauce(UnaryOperator<String> op) {
-			
+			sauceMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public UnaryOperator<String> getSauceMutator() {
-			return null;
+			return sauceMutators.stream()
+								.reduce((n -> n), 
+										(op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			
+			priceMutators.add(priceMutator);
 		}
 
 		@Override
-		public UnaryOperator<BigDecimal> getPriceMutator() {
-			return null;
+		/**
+		 * 
+		 */
+		public UnaryOperator<BigDecimal> getPriceMutator() {			
+			return priceMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
-			
+			weightMutators.add(weightMutator);
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getWeightMutator() {
-			return null;
+			return weightMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> op1.compose(op2));
+		}		
+
+		@Override
+		public void diameter(DoubleUnaryOperator op) {
+			diameterMutators.add(op);			
 		}
 
 		@Override
-		public void diameter(UnaryOperator<Double> op) {
-			
-		}
-
-		@Override
-		public UnaryOperator<Double> getDiameterMutator() {
-			return null;
+		public DoubleUnaryOperator getDiameterMutator() {
+			return diameterMutators.stream()														  
+		 			 .reduce((n -> n),
+		 					 (op1, op2) -> op1.compose(op2));
 		}
 		
 	}

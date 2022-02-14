@@ -1,6 +1,7 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
@@ -25,41 +26,62 @@ public class IceCreamImpl extends AbstractFood implements IceCream {
 	}
 	
 	private static class Config implements IceCream.Config {
+		private List<UnaryOperator<BigDecimal>> priceMutators;
+		private List<DoubleUnaryOperator> weightMutators;
+		private List<UnaryOperator<String>> flavorMutators;
 
 		@Override
+		/**
+		 * 
+		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			// TODO Auto-generated method stub
-			
+			priceMutators.add(priceMutator);
 		}
 
 		@Override
-		public UnaryOperator<BigDecimal> getPriceMutator() {
-			// TODO Auto-generated method stub
-			return null;
+		/**
+		 * 
+		 */
+		public UnaryOperator<BigDecimal> getPriceMutator() {			
+			return priceMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
-			// TODO Auto-generated method stub
-			
+			weightMutators.add(weightMutator);
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getWeightMutator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+			return weightMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> op1.compose(op2));
+		}		
 
 		@Override
+		/**
+		 * 
+		 */
 		public void flavor(UnaryOperator<String> op) {
-			// TODO Auto-generated method stub
-			
+			flavorMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public UnaryOperator<String> getFlavorMutator() {
-			// TODO Auto-generated method stub
-			return null;
+			return flavorMutators.stream()														  
+		 			 .reduce((n -> n),
+		 					 (op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
 		}
 		
 	}

@@ -1,6 +1,6 @@
 package projekt.food;
 
-import java.util.function.UnaryOperator;
+import java.util.function.DoubleUnaryOperator;
 
 public interface Pizza extends Saucable {
 	
@@ -20,13 +20,13 @@ public interface Pizza extends Saucable {
 		 * 
 		 * @param op
 		 */
-		void diameter(UnaryOperator<Double> op);
+		void diameter(DoubleUnaryOperator op);
 		
 		/**
 		 * 
 		 * @return
 		 */
-		UnaryOperator<Double> getDiameterMutator();
+		DoubleUnaryOperator getDiameterMutator();
 	}
 	
 	interface Variant extends Saucable.Variant {

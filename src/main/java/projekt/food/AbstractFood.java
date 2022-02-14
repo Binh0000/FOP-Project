@@ -13,21 +13,33 @@ public class AbstractFood implements Food{
 	private List<? extends Extra<?>> extras;
 	
 	@Override
+	/**
+	 * 
+	 */
 	public BigDecimal getPrice() {
 		return price;
 	}
 	
 	@Override
+	/**
+	 * 
+	 */
 	public double getWeight() {
 		return weight;
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public Variant<?, ?> getFoodVariant() {
 		return foodVariant;
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public List<? extends Extra<?>> getExtras() {
 		return extras;
 	}
@@ -37,35 +49,40 @@ public class AbstractFood implements Food{
 		private List<DoubleUnaryOperator> weightMutators;
 
 		@Override
+		/**
+		 * 
+		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
 			priceMutators.add(priceMutator);
 		}
 
 		@Override
-		public UnaryOperator<BigDecimal> getPriceMutator() {
-			UnaryOperator<BigDecimal> composition = priceMutators.stream().collect(null);
-			UnaryOperator<BigDecimal> temp = null;
-			for(UnaryOperator<BigDecimal> priceMutator: priceMutators) {
-				if(temp == null) {
-					temp = priceMutator;
-				} else {
-					temp = (n -> priceMutator.apply(n));
-				}
-			}
-			return composition;
+		/**
+		 * 
+		 */
+		public UnaryOperator<BigDecimal> getPriceMutator() {			
+			return priceMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
 			weightMutators.add(weightMutator);
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getWeightMutator() {
-			
-			return null;
-		}
-		
+			return weightMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> op1.compose(op2));
+		}		
 	}
 
 }

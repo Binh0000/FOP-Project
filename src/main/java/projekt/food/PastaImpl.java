@@ -1,6 +1,7 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
@@ -25,53 +26,75 @@ public class PastaImpl extends AbstractSaucable implements Pasta {
 	}
 	
 	private static class Config implements Pasta.Config {
+		private List<UnaryOperator<BigDecimal>> priceMutators;
+		private List<DoubleUnaryOperator> weightMutators;
+		private List<UnaryOperator<String>> sauceMutators;
+		private List<DoubleUnaryOperator> thicknessMutators;
 
 		@Override
+		/**
+		 * 
+		 */
 		public void sauce(UnaryOperator<String> op) {
-			// TODO Auto-generated method stub
-			
+			sauceMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public UnaryOperator<String> getSauceMutator() {
-			// TODO Auto-generated method stub
-			return null;
+			return sauceMutators.stream()
+								.reduce((n -> n), 
+										(op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			// TODO Auto-generated method stub
-			
+			priceMutators.add(priceMutator);
 		}
 
 		@Override
-		public UnaryOperator<BigDecimal> getPriceMutator() {
-			// TODO Auto-generated method stub
-			return null;
+		/**
+		 * 
+		 */
+		public UnaryOperator<BigDecimal> getPriceMutator() {			
+			return priceMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
-			// TODO Auto-generated method stub
-			
+			weightMutators.add(weightMutator);
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getWeightMutator() {
-			// TODO Auto-generated method stub
-			return null;
+			return weightMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> op1.compose(op2));
+		}		
+
+		@Override
+		public void thickness(DoubleUnaryOperator op) {
+			thicknessMutators.add(op);			
 		}
 
 		@Override
-		public void thickness(UnaryOperator<Double> op) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public UnaryOperator<Double> getThicknessMutator() {
-			// TODO Auto-generated method stub
-			return null;
+		public DoubleUnaryOperator getThicknessMutator() {
+			return thicknessMutators.stream()														  
+		 			 .reduce((n -> n),
+		 					 (op1, op2) -> op1.compose(op2));
 		}
 		
 	}

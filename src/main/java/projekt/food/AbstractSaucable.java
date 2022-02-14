@@ -1,6 +1,7 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
@@ -17,42 +18,63 @@ public abstract class AbstractSaucable extends AbstractFood implements Saucable 
 	}
 	
 	private static class Config implements Saucable.Config {
+		private List<UnaryOperator<BigDecimal>> priceMutators;
+		private List<DoubleUnaryOperator> weightMutators;
+		private List<UnaryOperator<String>> sauceMutators;
 
 		@Override
-		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public UnaryOperator<BigDecimal> getPriceMutator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void weight(DoubleUnaryOperator weightMutator) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public DoubleUnaryOperator getWeightMutator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
+		/**
+		 * 
+		 */
 		public void sauce(UnaryOperator<String> op) {
-			// TODO Auto-generated method stub
-			
+			sauceMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public UnaryOperator<String> getSauceMutator() {
-			// TODO Auto-generated method stub
-			return null;
+			return sauceMutators.stream()
+								.reduce((n -> n), 
+										(op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
 		}
+
+		@Override
+		/**
+		 * 
+		 */
+		public void price(UnaryOperator<BigDecimal> priceMutator) {
+			priceMutators.add(priceMutator);
+		}
+
+		@Override
+		/**
+		 * 
+		 */
+		public UnaryOperator<BigDecimal> getPriceMutator() {			
+			return priceMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> (UnaryOperator<BigDecimal>) op1.compose(op2));
+		}
+
+		@Override
+		/**
+		 * 
+		 */
+		public void weight(DoubleUnaryOperator weightMutator) {
+			weightMutators.add(weightMutator);
+		}
+
+		@Override
+		/**
+		 * 
+		 */
+		public DoubleUnaryOperator getWeightMutator() {
+			return weightMutators.stream()														  
+					 			 .reduce((n -> n),
+					 					 (op1, op2) -> op1.compose(op2));
+		}	
 		
 	}
 }
