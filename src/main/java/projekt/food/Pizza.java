@@ -28,4 +28,13 @@ public interface Pizza extends Saucable{
 		 */
 		UnaryOperator<Double> getDiameterMutator();
 	}
+	
+	interface Variant extends Saucable.Variant {
+		
+		/**
+		 * 
+		 * @return
+		 */
+		double getBaseDiameter();
+	}
 }

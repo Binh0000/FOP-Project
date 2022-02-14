@@ -30,5 +30,10 @@ public interface Saucable {
 	
 	interface Variant extends Food.Variant<Food, Config> {
 		
+		/**
+		 * 
+		 * @return
+		 */
+		String getBaseSauce();
 	}
 }

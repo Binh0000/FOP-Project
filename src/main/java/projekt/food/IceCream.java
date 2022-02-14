@@ -15,4 +15,13 @@ public interface IceCream extends Food {
 		
 		UnaryOperator<String> getFlavorMutator();
 	}
+	
+	interface Variant extends Food.Variant<Food, Config> {
+		
+		/**
+		 * 
+		 * @return
+		 */
+		String getBaseFlavor();
+	}
 }
