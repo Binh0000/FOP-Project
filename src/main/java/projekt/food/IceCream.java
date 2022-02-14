@@ -3,6 +3,7 @@ package projekt.food;
 import java.util.function.UnaryOperator;
 
 public interface IceCream extends Food {
+	
 	/**
 	 * Returns the flavor of the ice cream
 	 * @return	flavor of the ice cream
@@ -11,8 +12,16 @@ public interface IceCream extends Food {
 	
 	interface Config extends Food.Config {
 		
+		/**
+		 * 
+		 * @param op
+		 */
 		void flavor(UnaryOperator<String> op);
 		
+		/**
+		 * 
+		 * @return
+		 */
 		UnaryOperator<String> getFlavorMutator();
 	}
 	
