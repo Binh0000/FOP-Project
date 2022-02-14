@@ -1,5 +1,6 @@
 package projekt.base;
 
+//TODO H1.2
 public class ManhattanDistanceCalculator implements DistanceCalculator{
 
 	@Override

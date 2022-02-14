@@ -1,7 +1,7 @@
 package projekt.base;
 
+//TODO H1.2
 public class EuclideanDistanceCalculator implements DistanceCalculator {
-
 	@Override
 	/**
 	 * 

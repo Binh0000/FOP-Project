@@ -1,5 +1,6 @@
 package projekt.base;
 
+//TODO H1.1
 public class Location {
 	private final int x;
 	private final int y;
