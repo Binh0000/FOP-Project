@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
-public class PastaImpl extends AbstractSaucable implements Pasta {
+class PastaImpl extends AbstractSaucable implements Pasta {
 	
-	private double thickness;
+	private static double thickness;
 	
 	/**
 	 * Constructs an object that is an implementation of the interface Pasta
 	 */
 	public PastaImpl(BigDecimal price, double weight, Pasta.Variant foodVariant, List<? extends Extra<?>> extras, String sauce, double thickness) {
 		super(price, weight, foodVariant, extras, sauce);
-		this.thickness = thickness;
+		PastaImpl.thickness = thickness;
 	}
 
 	@Override
@@ -26,20 +26,23 @@ public class PastaImpl extends AbstractSaucable implements Pasta {
 		return thickness;
 	}
 	
-	private static class Config extends AbstractSauceConfig implements Pasta.Config {
+	private static class Config extends AbstractSaucable.Config implements Pasta.Config {
 		
 		private List<DoubleUnaryOperator> thicknessMutators;
-		
-		private Config() {
-			super();
-		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public void thickness(DoubleUnaryOperator op) {
+			thickness = op.applyAsDouble(thickness);
 			thicknessMutators.add(op);			
 		}
 
 		@Override
+		/**
+		 * 
+		 */
 		public DoubleUnaryOperator getThicknessMutator() {
 			return thicknessMutators.stream()														  
 		 			 .reduce((n -> n),

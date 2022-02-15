@@ -7,9 +7,9 @@ import java.util.function.UnaryOperator;
 
 import projekt.food.Food.Variant;
 
-public class IceCreamImpl extends AbstractFood implements IceCream {
+class IceCreamImpl extends AbstractFood implements IceCream {
 	
-	private String flavor;
+	private static String flavor;
 	
 	/**
 	 * Constructs an object that is an implementation of the interface IceCream
@@ -27,7 +27,7 @@ public class IceCreamImpl extends AbstractFood implements IceCream {
 		return flavor;
 	}
 	
-	private static class Config extends AbstractFoodConfig implements IceCream.Config {
+	private static class Config extends AbstractFood.Config implements IceCream.Config {
 		
 		private List<UnaryOperator<String>> flavorMutators;
 		
@@ -40,6 +40,7 @@ public class IceCreamImpl extends AbstractFood implements IceCream {
 		 * 
 		 */
 		public void flavor(UnaryOperator<String> op) {
+			flavor = op.apply(flavor);
 			flavorMutators.add(op);			
 		}
 

@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
-public class PizzaImpl extends AbstractSaucable implements Pizza {
+class PizzaImpl extends AbstractSaucable implements Pizza {
 	
-	private double diameter;
+	private static double diameter;
 	
 	/**
 	 * Constructs an object that is an implementation of the interface Pizza
 	 */
 	public PizzaImpl(BigDecimal price, double weight, Pizza.Variant foodVariant, List<? extends Extra<?>> extras, String sauce ,double diameter) {
 		super(price, weight, foodVariant, extras, sauce);
-		this.diameter = diameter;
+		PizzaImpl.diameter = diameter;
 	}
 
 	@Override
@@ -26,19 +26,16 @@ public class PizzaImpl extends AbstractSaucable implements Pizza {
 		return diameter;
 	}
 	
-	private static class Config extends AbstractSauceConfig implements Pizza.Config {
+	private static class Config extends AbstractSaucable.Config implements Pizza.Config {
 		
 		private List<DoubleUnaryOperator> diameterMutators;
-		
-		private Config() {
-			super();
-		}
 
 		@Override
 		/**
 		 * 
 		 */
 		public void diameter(DoubleUnaryOperator op) {
+			diameter = op.applyAsDouble(diameter);
 			diameterMutators.add(op);			
 		}
 

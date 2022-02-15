@@ -7,9 +7,9 @@ import projekt.food.Food.Config;
 public class ExtraImpl<C extends Food.Config> implements Extra<C> {
 	private final String name;
 	private final int priority;
-	private final Consumer<Food.Config> configMutator;
+	private final Consumer<? super Food.Config> configMutator;
 	
-	public ExtraImpl(String name, int priority, Consumer<Food.Config> configMutator) {
+	public ExtraImpl(String name, int priority, Consumer<? super Food.Config> configMutator) {
 		this.name = name;
 		this.priority = priority;
 		this.configMutator = configMutator;
@@ -27,7 +27,7 @@ public class ExtraImpl<C extends Food.Config> implements Extra<C> {
 
 	@Override
 	public void apply(Config config) {
-		
+		configMutator.accept(config);
 	}
 	
 	

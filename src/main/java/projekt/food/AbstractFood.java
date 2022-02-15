@@ -6,17 +6,17 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
 
-public class AbstractFood implements Food{
-	private BigDecimal price;
-	private double weight;
-	private Variant<?, ?> foodVariant;
-	private List<? extends Extra<?>> extras;
+class AbstractFood implements Food{
+	private static BigDecimal price;
+	private static double weight;
+	private static Variant<?, ?> foodVariant;
+	private static List<? extends Extra<?>> extras;
 	
 	public AbstractFood(BigDecimal price, double weight, Variant<?, ?> foodVariant, List<? extends Extra<?>> extras) {
-		this.price = price;
-		this.weight = weight;
-		this.foodVariant = foodVariant;
-		this.extras = extras;
+		AbstractFood.price = price;
+		AbstractFood.weight = weight;
+		AbstractFood.foodVariant = foodVariant;
+		AbstractFood.extras = extras;
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class AbstractFood implements Food{
 		return extras;
 	}
 	
-	private static class Config implements Food.Config {
+	static class Config implements Food.Config {
 		private List<UnaryOperator<BigDecimal>> priceMutators;
 		private List<DoubleUnaryOperator> weightMutators;
 
@@ -60,6 +60,7 @@ public class AbstractFood implements Food{
 		 * 
 		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
+			price = priceMutator.apply(price);
 			priceMutators.add(priceMutator);
 		}
 
@@ -78,6 +79,7 @@ public class AbstractFood implements Food{
 		 * 
 		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
+			weight = weightMutator.applyAsDouble(weight);
 			weightMutators.add(weightMutator);
 		}
 
