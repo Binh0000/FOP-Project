@@ -6,11 +6,15 @@ import java.time.LocalDateTime;
 public class TimeInterval {
 	private final LocalDateTime start;
 	private final LocalDateTime end;
+
 	
 	/**
 	 * Constructs a TimeInterval object representing a time interval
+	 * 
 	 * @param start start of time interval
-	 * @param end end of time interval
+	 * @param end end of time interval	 
+	 * @throws NullPointerException when either start or end of interval is null
+	 * @throws IllegalArgumentException when start is after end of interval
 	 */
 	public TimeInterval(LocalDateTime start, LocalDateTime end) {
 		if(start == null) 
@@ -25,16 +29,16 @@ public class TimeInterval {
 	}
 	
 	/**
-	 * Returns the private constant start
-	 * @return start
+	 * Returns the time at the start of the interval
+	 * @return start start of interval
 	 */
 	public LocalDateTime getStart() {
 		return start;
 	}
 	
 	/**
-	 * Returns the private constant end
-	 * @return end
+	 * Returns the time at the end of the interval
+	 * @return end end of interval
 	 */
 	public LocalDateTime getEnd() {
 		return end;

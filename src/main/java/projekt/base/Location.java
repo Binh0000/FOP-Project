@@ -32,18 +32,22 @@ public class Location {
 	}
 	
 	/**
+	 * Adds this location's x and y coordinates to another location's coordinates
+	 * and return them in a new Location object
 	 * 
-	 * @param location
-	 * @return
+	 * @param location location to add
+	 * @return Location containing added coordinates
 	 */
 	public Location add(Location location) {
 		return new Location(x + location.getX(), y + location.getY());
 	}
 	
 	/**
+	 * Subtracts this location's x and y coordinates with another location's coordinates
+	 * and return the absolute value of the result in a new Location object
 	 * 
-	 * @param location
-	 * @return
+	 * @param location location to subtract
+	 * @return Location containing result
 	 */
 	public Location subtract(Location location) {
 		return new Location(Math.abs(x - location.getX()), Math.abs(y - location.getY()));
