@@ -19,16 +19,19 @@ public interface Extra<C extends Food.Config> {
 
     /**
      * The priority of the extra, lower is calculated first
+     *
+     * @return The priority of the extra
      */
     int getPriority();
 
     /**
      * Applies the modifications of this extra to the provided {@link C config}.
+     * @param {@link C config} to apply this extra to
      */
     void apply(C config);
     
     /**
-     * Sorts a list of
+     * Sorts a list of...
      * @param <C>
      * @param Config
      * @param extras

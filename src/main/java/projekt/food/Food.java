@@ -199,7 +199,7 @@ public interface Food {
         /**
          * The base weight of this variant.
          *
-         * @return The weight price of this variant
+         * @return The base weight of this variant
          */
         double getBaseWeight();
 

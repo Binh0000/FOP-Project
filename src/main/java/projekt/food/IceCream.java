@@ -1,6 +1,5 @@
 package projekt.food;
 
-import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
 public interface IceCream extends Food {
@@ -36,11 +35,15 @@ public interface IceCream extends Food {
 		UnaryOperator<String> getFlavorMutator();
 	}
 	
-	interface Variant extends Food.Variant<Food, Config> {
+	/**
+	 * A specific but not yet complete variant of Ice cream; e.g.: Ice cream cone, stick, bowl,...
+	 */
+	interface Variant<F extends IceCream, C extends IceCream.Config> extends Food.Variant<F, C> {
 		
 		/**
+		 * The base flavor of this variant
 		 * 
-		 * @return
+		 * @return The base flavor of this variant
 		 */
 		String getBaseFlavor();
 	}

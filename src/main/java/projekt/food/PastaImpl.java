@@ -1,20 +1,29 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.DoubleUnaryOperator;
-import java.util.function.UnaryOperator;
 
 class PastaImpl extends AbstractSaucable implements Pasta {
 	
-	private static double thickness;
+	static final FoodBuilder<Pasta, Pasta.Config, Food.Variant<Pasta, Pasta.Config>> BUILDER;
+	
+	static {
+		BUILDER = null;
+	}
+	
+	final double thickness;
 	
 	/**
 	 * Constructs an object that is an implementation of the interface Pasta
 	 */
-	public PastaImpl(BigDecimal price, double weight, Pasta.Variant foodVariant, List<? extends Extra<?>> extras, String sauce, double thickness) {
+	public PastaImpl(BigDecimal price, double weight, 
+			Pasta.Variant<? extends Pasta, ? extends Pasta.Config> foodVariant, 
+			List<? extends Extra<?>> extras, String sauce, double thickness) {
 		super(price, weight, foodVariant, extras, sauce);
-		PastaImpl.thickness = thickness;
+		this.thickness = thickness;
+		BUILDER.build(null, null, null);
 	}
 
 	@Override
@@ -28,14 +37,14 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 	
 	private static class Config extends AbstractSaucable.Config implements Pasta.Config {
 		
-		private List<DoubleUnaryOperator> thicknessMutators;
+		private List<DoubleUnaryOperator> thicknessMutators = new ArrayList<>();
 
 		@Override
 		/**
 		 * 
 		 */
 		public void thickness(DoubleUnaryOperator op) {
-			thickness = op.applyAsDouble(thickness);
+			
 			thicknessMutators.add(op);			
 		}
 
@@ -47,8 +56,14 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 			return thicknessMutators.stream()														  
 		 			 .reduce((n -> n),
 		 					 (op1, op2) -> op1.compose(op2));
-		}
-		
+		}		
 	}
+	
+	static class Variant<F extends Pasta, C extends Pasta.Config> extends AbstractSaucable.Variant<F, C> implements Pasta.Variant<F, C> {
 
+		@Override
+		public double getBaseThickness() {
+			return 0;
+		}		
+	}
 }

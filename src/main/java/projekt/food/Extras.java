@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class Extras {
+	
 	public static final Extra<Pizza.Config> EXTRA_HAM;
 	public static final Extra<Pizza.Config> EXTRA_OLIVES;
 	public static final Extra<Pasta.Config> EXTRA_THICK;
@@ -16,8 +17,11 @@ public final class Extras {
 	public static final Extra<IceCream.Config> RAINBOW_SPRINKLES;
 	public static final Extra<IceCream.Config> EXTRA_SCOOP;
 
-	public static final Map<String, Extra<?>> ALL;
-
+	public static Map<String, Extra<?>> ALL;
+	
+	/**
+	 * Static block to initialize the class attributes
+	 */
 	static {
 		EXTRA_HAM = new ExtraImpl<Pizza.Config>("Extra Ham", 5,
 				new Consumer<Food.Config>() {

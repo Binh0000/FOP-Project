@@ -33,7 +33,7 @@ class FoodTypeImpl<F extends Food, C extends Food.Config> implements FoodType<F,
 
 	@Override
 	public void addFoodVariant(Variant<F, C> variant) {
-		// TODO Auto-generated method stub		
+			
 	}
 
 }

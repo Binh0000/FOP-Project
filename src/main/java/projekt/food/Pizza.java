@@ -35,11 +35,15 @@ public interface Pizza extends Saucable {
 		DoubleUnaryOperator getDiameterMutator();
 	}
 	
-	interface Variant extends Saucable.Variant {
+	/**
+	 * A specific but not yet complete variant of Pizza; e.g.: Italian pizza, American pizza,... 
+	 */
+	interface Variant<F extends Pizza, C extends Pizza.Config> extends Saucable.Variant<F, C> {
 		
 		/**
+		 * The base diameter of this variant
 		 * 
-		 * @return
+		 * @return The base diameter of this variant
 		 */
 		double getBaseDiameter();
 	}

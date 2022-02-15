@@ -37,11 +37,15 @@ public interface Pasta extends Saucable {
 		DoubleUnaryOperator getThicknessMutator();
 	}
 	
-	interface Variant extends Saucable.Variant {
+	/**
+	 * A specific but not yet complete variant of Pasta; e.g.: Carbonara, Lasagna, Spaghetti Bolognese... 
+	 */
+	interface Variant<F extends Pasta, C extends Pasta.Config> extends Saucable.Variant<F, C> {
 		
 		/**
+		 * The base thickness of variant noodles
 		 * 
-		 * @return
+		 * @return The base thickness of variant noodles
 		 */
 		double getBaseThickness();
 	}

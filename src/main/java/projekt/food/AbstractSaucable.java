@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
 
+import projekt.food.AbstractFood.Config;
 import projekt.food.Food.Variant;
 
 abstract class AbstractSaucable extends AbstractFood implements Saucable {
 
-	private String sauce;	
+	final String sauce;	
 	
-	public AbstractSaucable(BigDecimal price, double weight, Saucable.Variant foodVariant, List<? extends Extra<?>> extras, String sauce) {
+	public AbstractSaucable(BigDecimal price, double weight, 
+			Saucable.Variant<? extends Saucable, ? extends Saucable.Config> foodVariant, 
+			List<? extends Extra<?>> extras, String sauce) {
 		super(price, weight, foodVariant, extras);
 		this.sauce = sauce;
 	}
@@ -26,7 +29,6 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 	
 	static class Config extends AbstractFood.Config implements Saucable.Config {
 		
-		private static String sauce;
 		private List<UnaryOperator<String>> sauceMutators;
 		
 		@Override
@@ -34,7 +36,7 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		 * 
 		 */
 		public void sauce(UnaryOperator<String> op) {
-			sauce = op.apply(sauce);
+			
 			sauceMutators.add(op);			
 		}
 
@@ -47,5 +49,13 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 								.reduce((n -> n), 
 										(op1, op2) -> (UnaryOperator<String>) op1.compose(op2));
 		}
+	}
+	
+	static class Variant<F extends Saucable, C extends Saucable.Config> extends AbstractFood.Variant<F, C> implements Saucable.Variant<F, C> {
+
+		@Override
+		public String getBaseSauce() {
+			return null;
+		}	
 	}
 }
