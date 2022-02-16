@@ -4,15 +4,14 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+//TODO H2.4
 class IceCreamImpl extends AbstractFood implements IceCream {
 	
-	static final FoodBuilder<IceCream, IceCream.Config, Food.Variant<IceCream, IceCream.Config>> BUILDER;
-	
-	static {
-		BUILDER = (config, variant, extras) -> {
-			return null;
-		};
-	}
+	//TODO H2.11
+	static final FoodBuilder<IceCreamImpl, Config, Variant<IceCreamImpl, Config>> BUILDER = 
+		(Config config, Variant<IceCreamImpl, Config> variant, List<? extends Extra<Config>> extras) -> {			
+			return new IceCreamImpl(config.p, config.w, variant, extras, config.f);			
+	};
 	
 	final String flavor;
 	
@@ -35,17 +34,24 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 		return flavor;
 	}
 	
+	//TODO H2.5
 	private static class Config extends AbstractFood.Config implements IceCream.Config {
 		
+		String f;
 		private List<UnaryOperator<String>> flavorMutators;
+		
+		Config(BigDecimal p, double w, String f) {
+			super(p, w);
+			this.f = f;
+		}
 		
 		@Override
 		/**
 		 * 
 		 */
-		public void flavor(UnaryOperator<String> op) {
-			
-			flavorMutators.add(op);			
+		public void flavor(UnaryOperator<String> flavorMutator) {
+			f = flavorMutator.apply(f);
+			flavorMutators.add(flavorMutator);			
 		}
 
 		@Override
@@ -60,9 +66,21 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 		
 	}
 	
-	static class Variant<F extends IceCream, C extends IceCream.Config> extends AbstractFood.Variant<F, C> implements IceCream.Variant<F, C> {
-
+	//TODO H2.12
+	static class Variant<F extends IceCream, C extends IceCream.Config> 
+						extends AbstractFood.Variant<F, C> implements IceCream.Variant<F, C> {
+		
+		String baseFlavor;
+		
+		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight, String baseFlavor) {
+			super(name, foodType, basePrice, baseWeight);
+			this.baseFlavor = baseFlavor;
+		}
+				
 		@Override
+		/**
+		 * 
+		 */
 		public String getBaseFlavor() {
 			return null;
 		}

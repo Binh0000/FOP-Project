@@ -7,18 +7,23 @@ import java.util.function.DoubleUnaryOperator;
 
 class PizzaImpl extends AbstractSaucable implements Pizza {
 	
-	static final FoodBuilder<Pizza, Pizza.Config, Food.Variant<Pizza, Pizza.Config>> BUILDER;
-	
-	static {
-		BUILDER = (config, variant, extras) -> {
-			return null;
-		};
-	}
+	//TODO H2.11
+	static final FoodBuilder<PizzaImpl, Config, Variant<PizzaImpl, Config>> BUILDER = 
+		(Config config, Variant<PizzaImpl, Config> variant, List<? extends Extra<Config>> extras) -> {			
+			return new PizzaImpl(config.p, config.w, variant, extras, config.s, config.d);			
+	};
 	
 	final double diameter;
 	
 	/**
-	 * Constructs an object that is an implementation of the interface Pizza
+	 * Constructs a new {@link PizzaImpl} representing a pizza with its parameters as attributes of the pizza
+	 * 
+	 * @param price price of this pizza
+	 * @param weight weight of this pizza
+	 * @param foodVariant variant of this pizza
+	 * @param extras list of extras of this pizza
+	 * @param sauce sauce of this pizza
+	 * @param diameter diameter of this pizza
 	 */
 	public PizzaImpl(BigDecimal price, double weight, 
 					 Pizza.Variant<? extends Pizza, ? extends Pizza.Config> foodVariant, 
@@ -30,24 +35,41 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 
 	@Override
 	/**
-	 * Returns the private variable diameter
+	 * Returns the diameter of this pizza
 	 * @return diameter of pizza
 	 */
 	public double getDiameter() {
 		return diameter;
 	}
 	
+	//TODO H2.5
 	private static class Config extends AbstractSaucable.Config implements Pizza.Config {
 		
+		double d;
+		double w = super.w;
+		
 		private List<DoubleUnaryOperator> diameterMutators = new ArrayList<>();
-
+		
+		/**
+		 * Constructs 
+		 * 
+		 * @param p
+		 * @param w
+		 * @param s
+		 * @param d
+		 */
+		Config(BigDecimal p, double w, String s, double d) {
+			super(p, w, s);
+			this.d = d;
+		}
+		
 		@Override
 		/**
 		 * 
 		 */
-		public void diameter(DoubleUnaryOperator op) {
-			
-			diameterMutators.add(op);			
+		public void diameter(DoubleUnaryOperator diameterMutator) {
+			d = diameterMutator.applyAsDouble(d);
+			diameterMutators.add(diameterMutator);			
 		}
 
 		@Override
@@ -61,11 +83,31 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 		}		
 	}
 	
+	//TODO H2.12
 	static class Variant<F extends Pizza,C extends Pizza.Config> extends AbstractSaucable.Variant<F, C> implements Pizza.Variant<F, C> {
 
+		double baseDiameter;
+		
+		/**
+		 * 
+		 * @param name
+		 * @param foodType
+		 * @param basePrice
+		 * @param baseWeight
+		 * @param baseSauce
+		 * @param baseDiameter
+		 */
+		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight, String baseSauce, double baseDiameter) {
+			super(name, foodType, basePrice, baseWeight, baseSauce);
+			this.baseDiameter = baseDiameter;
+		}
+
 		@Override
+		/**
+		 * 
+		 */
 		public double getBaseDiameter() {
-			return 0;
+			return baseDiameter;
 		}		
 	}
 }

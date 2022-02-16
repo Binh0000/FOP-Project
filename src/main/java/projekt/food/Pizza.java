@@ -2,7 +2,7 @@ package projekt.food;
 
 import java.util.function.DoubleUnaryOperator;
 
-public interface Pizza extends Saucable {
+public interface Pizza extends Saucable {	
 	
 	//TODO H2.1
 	/**
@@ -47,4 +47,7 @@ public interface Pizza extends Saucable {
 		 */
 		double getBaseDiameter();
 	}
+	
+	//TODO H2.13
+	static final Variant<Pizza, Config> MARGHERITA = null;
 }

@@ -2,16 +2,21 @@ package projekt.food;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.DoubleUnaryOperator;
 import java.util.function.UnaryOperator;
-
-import projekt.food.AbstractFood.Config;
-import projekt.food.Food.Variant;
 
 abstract class AbstractSaucable extends AbstractFood implements Saucable {
 
 	final String sauce;	
 	
+	/**
+	 * Constructs an object that is an implementation of {@link Saucable}
+	 * 
+	 * @param price price of this food
+	 * @param weight weight of this food
+	 * @param foodVariant variant of this food
+	 * @param extras extras compatible with this food
+	 * @param sauce sauce of this food
+	 */
 	public AbstractSaucable(BigDecimal price, double weight, 
 			Saucable.Variant<? extends Saucable, ? extends Saucable.Config> foodVariant, 
 			List<? extends Extra<?>> extras, String sauce) {
@@ -29,15 +34,22 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 	
 	static class Config extends AbstractFood.Config implements Saucable.Config {
 		
-		private List<UnaryOperator<String>> sauceMutators;
+		String s;
+		
+		List<UnaryOperator<String>> sauceMutators;
+		
+		Config(BigDecimal p, double w, String s) {
+			super(p, w);
+			this.s = s;
+		}	
 		
 		@Override
 		/**
 		 * 
 		 */
-		public void sauce(UnaryOperator<String> op) {
-			
-			sauceMutators.add(op);			
+		public void sauce(UnaryOperator<String> sauceMutator) {
+			s = sauceMutator.apply(s);
+			sauceMutators.add(sauceMutator);			
 		}
 
 		@Override
@@ -51,11 +63,26 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		}
 	}
 	
-	static class Variant<F extends Saucable, C extends Saucable.Config> extends AbstractFood.Variant<F, C> implements Saucable.Variant<F, C> {
+	static class Variant<F extends Saucable, C extends Saucable.Config> 
+						extends AbstractFood.Variant<F, C> implements Saucable.Variant<F, C> {
+		String baseSauce;
+		
+		/**
+		 * 
+		 * @param name
+		 * @param foodType
+		 * @param basePrice
+		 * @param baseWeight
+		 * @param baseSauce
+		 */
+		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight, String baseSauce) {
+			super(name, foodType, basePrice, baseWeight);
+			this.baseSauce = baseSauce; 
+		}
 
 		@Override
 		public String getBaseSauce() {
-			return null;
+			return baseSauce;
 		}	
 	}
 }

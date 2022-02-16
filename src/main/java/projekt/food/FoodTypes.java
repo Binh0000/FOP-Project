@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//TODO H2.10
 public final class FoodTypes {
 	
 	public static final FoodType<Pizza, Pizza.Config> PIZZA;

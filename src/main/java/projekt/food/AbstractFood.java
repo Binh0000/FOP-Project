@@ -12,12 +12,12 @@ class AbstractFood implements Food {
 	final List<? extends Extra<?>> extras;
 	
 	/**
-	 * Constructs an object that is an implementation of Food
+	 * Constructs an object that is an implementation of {@link Food}
 	 * 
-	 * @param price
-	 * @param weight
-	 * @param foodVariant
-	 * @param extras
+	 * @param price price of this food
+	 * @param weight weight of this food
+	 * @param foodVariant variant of this food
+	 * @param extras extras compatible with this food
 	 */
 	public AbstractFood(BigDecimal price, double weight, 
 			Food.Variant<? extends Food, ? extends Food.Config> foodVariant, 
@@ -74,15 +74,23 @@ class AbstractFood implements Food {
 	 *
 	 */
 	static class Config implements Food.Config {
-		private List<UnaryOperator<BigDecimal>> priceMutators;
-		private List<DoubleUnaryOperator> weightMutators;
+		BigDecimal p;
+		double w;
+		
+		List<UnaryOperator<BigDecimal>> priceMutators;
+		List<DoubleUnaryOperator> weightMutators;
+		
+		Config(BigDecimal p, double w) {
+			this.p = p;
+			this.w = w;
+		}
 
 		@Override
 		/**
 		 * 
 		 */
 		public void price(UnaryOperator<BigDecimal> priceMutator) {
-			
+			p = priceMutator.apply(p);
 			priceMutators.add(priceMutator);
 		}
 
@@ -101,7 +109,7 @@ class AbstractFood implements Food {
 		 * 
 		 */
 		public void weight(DoubleUnaryOperator weightMutator) {
-			
+			w = weightMutator.applyAsDouble(w);
 			weightMutators.add(weightMutator);
 		}
 
@@ -117,25 +125,44 @@ class AbstractFood implements Food {
 	}
 	
 	static class Variant<F extends Food, C extends Food.Config> implements Food.Variant<F, C> {
+		
+		String name;
+		FoodType<F, C> foodType;
+		BigDecimal basePrice;
+		double baseWeight;
+		
+		/**
+		 * 
+		 * @param name
+		 * @param foodType
+		 * @param basePrice
+		 * @param baseWeight
+		 */
+		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight) {
+			this.name = name;
+			this.foodType = foodType;
+			this.basePrice = basePrice;
+			this.baseWeight = baseWeight;
+		}
 
 		@Override
 		public String getName() {
-			return null;
+			return name;
 		}
 
 		@Override
 		public FoodType<F, C> getFoodType() {
-			return null;
+			return foodType;
 		}
 
 		@Override
 		public BigDecimal getBasePrice() {
-			return null;
+			return basePrice;
 		}
 
 		@Override
 		public double getBaseWeight() {
-			return 0;
+			return baseWeight;
 		}
 
 		@Override
@@ -144,7 +171,7 @@ class AbstractFood implements Food {
 		}
 
 		@Override
-		public F create(List<? extends Extra<? super C>> extras) {
+		public F create(List<? extends Extra<? super C>> extras) {			
 			return null;
 		}
 

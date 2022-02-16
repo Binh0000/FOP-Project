@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+//TODO H2.7
 public final class Extras {
 	
 	public static final Extra<Pizza.Config> EXTRA_HAM;
@@ -105,7 +106,7 @@ public final class Extras {
 	}
 
 	/**
-	 * Private constructor to override public constructer
+	 * Private constructor to override public constructor
 	 */
 	private Extras() {}
 }
