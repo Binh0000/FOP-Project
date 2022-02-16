@@ -2,8 +2,6 @@ package projekt.food;
 
 import java.util.function.DoubleUnaryOperator;
 
-import projekt.food.Pizza.Variant;
-
 public interface Pasta extends Saucable {
 	
 	//TODO H2.1
