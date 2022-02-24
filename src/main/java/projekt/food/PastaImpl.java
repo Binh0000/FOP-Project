@@ -114,9 +114,10 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 			return (C) new Config(basePrice, baseWeight, baseSauce, baseThickness);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public F create(List<? extends Extra<? super C>> extras) {
-			return null;
+			return (F) PastaImpl.BUILDER.build((Config) createEmptyConfig(), (Variant<PastaImpl, Config>) this, (List<? extends Extra<Config>>) extras);
 		}
 	}
 }

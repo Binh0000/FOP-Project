@@ -9,7 +9,7 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	
 	//TODO H2.11
 	static final FoodBuilder<PizzaImpl, Config, Variant<PizzaImpl, Config>> BUILDER = 
-		(Config config, Variant<PizzaImpl, Config> variant, List<? extends Extra<? super Config>> extras) -> {			
+		(Config config, Variant<PizzaImpl, Config> variant, List<? extends Extra<Config>> extras) -> {			
 			return new PizzaImpl(config.p, config.w, variant, extras, config.s, config.d);			
 	};
 	
@@ -83,7 +83,7 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	}
 	
 	//TODO H2.12
-	static class Variant<F extends Pizza,C extends Pizza.Config> extends AbstractSaucable.Variant<F, C> implements Pizza.Variant<F, C> {
+	static class Variant<F extends Pizza, C extends Pizza.Config> extends AbstractSaucable.Variant<F, C> implements Pizza.Variant<F, C> {
 
 		double baseDiameter;
 		
@@ -115,9 +115,10 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 			return (C) new Config(basePrice, baseWeight, baseSauce, baseDiameter);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public F create(List<? extends Extra<? super C>> extras) {
-			return (F) PizzaImpl.BUILDER.build(null, null, (List<? extends Extra<? super Config>>) extras);
+			return (F) PizzaImpl.BUILDER.build((Config) createEmptyConfig(), (Variant<PizzaImpl, Config>) this, (List<? extends Extra<Config>>) extras);
 		}		
 	}
 }
