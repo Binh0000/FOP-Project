@@ -49,5 +49,19 @@ public interface Pizza extends Saucable {
 	}
 	
 	//TODO H2.13
-	static final Variant<Pizza, Config> MARGHERITA = null;
+    Pizza.Variant<Pizza, Pizza.Config> MARGHERITA =
+        new PizzaImpl.Variant<>("Margherita", FoodTypes.PIZZA, BigDecimal.valueOf(9.75),
+        0.8,"Tomato",30.0);
+
+    Pizza.Variant<Pizza, Pizza.Config> HAWAII =
+        new PizzaImpl.Variant<>("Hawaii", FoodTypes.PIZZA, BigDecimal.valueOf(13.75),
+        1.0,"Tomato",30.0);
+
+    Pizza.Variant<Pizza, Pizza.Config> RUCOLA =
+        new PizzaImpl.Variant<>("Rucola", FoodTypes.PIZZA,BigDecimal.valueOf(14.50),
+            0.9,"Tomato", 30.0);
+
+    Pizza.Variant<Pizza, Pizza.Config> BBQ =
+        new PizzaImpl.Variant<>("BBQ", FoodTypes.PIZZA, BigDecimal.valueOf(14.50),
+            1.1,"BBQ",30.0);
 }
