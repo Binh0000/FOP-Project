@@ -125,8 +125,9 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
          */
         @Override
         public F create(List<? extends Extra<? super C>> extras) {
-
-            return (F) PizzaImpl.BUILDER.build(null,null, (List<? extends Extra<PizzaImpl.Config>>) extras);
+            return (F) PizzaImpl.BUILDER.build((Config) createEmptyConfig(), 
+                                               (Variant<PizzaImpl, Config>) this, 
+                                               (List<? extends Extra<PizzaImpl.Config>>) extras);
         }
 	}
 }
