@@ -1,5 +1,5 @@
 package projekt.food;
-
+import java.math.BigDecimal;
 import java.util.function.DoubleUnaryOperator;
 
 public interface Pizza extends Saucable {	
