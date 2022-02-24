@@ -101,8 +101,9 @@ class IceCreamImpl extends AbstractFood implements IceCream {
          */
         @Override
         public F create(List<? extends Extra<? super C>> extras) {
-
-            return (F) IceCreamImpl.BUILDER.build(null,null, (List<? extends Extra<IceCreamImpl.Config>>) extras);
+            return (F) IceCreamImpl.BUILDER.build((Config) createEmptyConfig(), 
+                                                  (Variant<IceCreamImpl, Config>) this, 
+                                                  (List<? extends Extra<IceCreamImpl.Config>>) extras);
         }
 		
 	}
