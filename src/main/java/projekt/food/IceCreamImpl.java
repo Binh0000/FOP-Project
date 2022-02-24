@@ -84,6 +84,26 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 		public String getBaseFlavor() {
 			return null;
 		}
+        
+        /**
+         * 
+         * @return
+         */
+        @Override
+        public C createEmptyConfig() {
+            return (C) new IceCreamImpl.Config(basePrice,baseWeight,baseFlavor);
+        }
+
+        /**
+         * 
+         * @param extras The list of {@link Extra Extras} to configure the resultant {@link Food}
+         * @return
+         */
+        @Override
+        public F create(List<? extends Extra<? super C>> extras) {
+
+            return (F) IceCreamImpl.BUILDER.build(null,null, (List<? extends Extra<IceCreamImpl.Config>>) extras);
+        }
 		
 	}
 
