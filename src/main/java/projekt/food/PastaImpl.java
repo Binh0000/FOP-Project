@@ -107,5 +107,25 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 		public double getBaseThickness() {
 			return baseThickness;
 		}		
+        
+        /**
+         * 
+         * @return
+         */
+        @Override
+        public C createEmptyConfig() {
+            return (C) new Config(basePrice,baseWeight,baseSauce,baseThickness);
+        }
+
+        /**
+         * 
+         * @param extras The list of {@link Extra Extras} to configure the resultant {@link Food}
+         * @return
+         */
+        @Override
+        public F create(List<? extends Extra<? super C>> extras) {
+
+            return (F) PastaImpl.BUILDER.build(null,null, (List<? extends Extra<Config>>) extras);
+        }
 	}
 }
