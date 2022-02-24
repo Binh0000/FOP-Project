@@ -124,8 +124,9 @@ class PastaImpl extends AbstractSaucable implements Pasta {
          */
         @Override
         public F create(List<? extends Extra<? super C>> extras) {
-
-            return (F) PastaImpl.BUILDER.build(null,null, (List<? extends Extra<Config>>) extras);
+            return (F) PastaImpl.BUILDER.build((Config) createEmptyConfig(), 
+                                               (Variant<PastaImpl, Config>) this, 
+                                               (List<? extends Extra<Config>>) extras);
         }
 	}
 }
