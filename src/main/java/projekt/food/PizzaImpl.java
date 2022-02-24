@@ -109,5 +109,24 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 		public double getBaseDiameter() {
 			return baseDiameter;
 		}		
+        /**
+         * 
+         * @return
+         */
+        @Override
+        public C createEmptyConfig() {
+            return (C) new PizzaImpl.Config(basePrice,baseWeight,baseSauce,baseDiameter);
+        }
+
+        /**
+         * 
+         * @param extras The list of {@link Extra Extras} to configure the resultant {@link Food}
+         * @return
+         */
+        @Override
+        public F create(List<? extends Extra<? super C>> extras) {
+
+            return (F) PizzaImpl.BUILDER.build(null,null, (List<? extends Extra<PizzaImpl.Config>>) extras);
+        }
 	}
 }
