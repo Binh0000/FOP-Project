@@ -1,5 +1,5 @@
 package projekt.food;
-
+import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 
 public interface IceCream extends Food {
@@ -47,4 +47,15 @@ public interface IceCream extends Food {
 		 */
 		String getBaseFlavor();
 	}
+    
+    //H2.13
+    IceCream.Variant<IceCream,IceCream.Config> VANILLA =
+        new IceCreamImpl.Variant<>("Vanilla",FoodTypes.ICE_CREAM,BigDecimal.valueOf(1.5),0.2,"Vanialla");
+    IceCream.Variant<IceCream,IceCream.Config> STRAWBERRY =
+        new IceCreamImpl.Variant<>("Strawberry",FoodTypes.ICE_CREAM,BigDecimal.valueOf(1.5),0.2,"Strawberry");
+    IceCream.Variant<IceCream,IceCream.Config> CHOCOLATE =
+        new IceCreamImpl.Variant<>("Chocolate",FoodTypes.ICE_CREAM,BigDecimal.valueOf(1.5),0.2,"Chocolate");
+    IceCream.Variant<IceCream,IceCream.Config> STRACCIATELLA =
+        new IceCreamImpl.Variant<>("Stracciatella",FoodTypes.ICE_CREAM,BigDecimal.valueOf(1.5),0.2,"Stracciatella");
+
 }
