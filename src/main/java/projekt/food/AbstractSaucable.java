@@ -32,7 +32,7 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		return sauce;
 	}
 	
-	static class Config extends AbstractFood.Config implements Saucable.Config {
+	static abstract class Config extends AbstractFood.Config implements Saucable.Config {
 		
 		String s;
 		
@@ -63,7 +63,7 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		}
 	}
 	
-	static class Variant<F extends Saucable, C extends Saucable.Config> 
+	static abstract class Variant<F extends Saucable, C extends Saucable.Config> 
 						extends AbstractFood.Variant<F, C> implements Saucable.Variant<F, C> {
 		String baseSauce;
 		
@@ -83,6 +83,6 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		@Override
 		public String getBaseSauce() {
 			return baseSauce;
-		}	
+		}
 	}
 }

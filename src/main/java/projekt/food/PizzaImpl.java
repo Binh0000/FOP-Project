@@ -9,7 +9,7 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	
 	//TODO H2.11
 	static final FoodBuilder<PizzaImpl, Config, Variant<PizzaImpl, Config>> BUILDER = 
-		(Config config, Variant<PizzaImpl, Config> variant, List<? extends Extra<Config>> extras) -> {			
+		(Config config, Variant<PizzaImpl, Config> variant, List<? extends Extra<? super Config>> extras) -> {			
 			return new PizzaImpl(config.p, config.w, variant, extras, config.s, config.d);			
 	};
 	
@@ -46,7 +46,6 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	private static class Config extends AbstractSaucable.Config implements Pizza.Config {
 		
 		double d;
-		double w = super.w;
 		
 		private List<DoubleUnaryOperator> diameterMutators = new ArrayList<>();
 		
@@ -56,7 +55,7 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 		 * @param p
 		 * @param w
 		 * @param s
-		 * @param d
+		 * @param d 
 		 */
 		Config(BigDecimal p, double w, String s, double d) {
 			super(p, w, s);
@@ -108,6 +107,17 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 		 */
 		public double getBaseDiameter() {
 			return baseDiameter;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public C createEmptyConfig() {
+			return (C) new Config(basePrice, baseWeight, baseSauce, baseDiameter);
+		}
+
+		@Override
+		public F create(List<? extends Extra<? super C>> extras) {
+			return (F) PizzaImpl.BUILDER.build(null, null, (List<? extends Extra<? super Config>>) extras);
 		}		
 	}
 }

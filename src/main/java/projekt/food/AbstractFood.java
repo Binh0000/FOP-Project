@@ -73,7 +73,7 @@ abstract class AbstractFood implements Food {
 	 *
 	 *
 	 */
-	static class Config implements Food.Config {
+	static abstract class Config implements Food.Config {
 		BigDecimal p;
 		double w;
 
@@ -124,7 +124,7 @@ abstract class AbstractFood implements Food {
 		}
 	}
 
-	static class Variant<F extends Food, C extends Food.Config> implements Food.Variant<F, C> {
+	static abstract class Variant<F extends Food, C extends Food.Config> implements Food.Variant<F, C> {
 
 		String name;
 		FoodType<F, C> foodType;
@@ -164,17 +164,12 @@ abstract class AbstractFood implements Food {
 		public double getBaseWeight() {
 			return baseWeight;
 		}
+		
+		@Override
+		public abstract C createEmptyConfig();
 
 		@Override
-		public C createEmptyConfig() {
-			return null;
-		}
-
-		@Override
-		public F create(List<? extends Extra<? super C>> extras) {
-			return null;
-		}
-
+		public abstract F create(List<? extends Extra<? super C>> extras);
 
 	}
 }

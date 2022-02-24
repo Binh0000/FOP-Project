@@ -9,7 +9,7 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 	
 	//TODO H2.11
 	static final FoodBuilder<IceCreamImpl, Config, Variant<IceCreamImpl, Config>> BUILDER = 
-		(Config config, Variant<IceCreamImpl, Config> variant, List<? extends Extra<Config>> extras) -> {			
+		(Config config, Variant<IceCreamImpl, Config> variant, List<? extends Extra<? super Config>> extras) -> {			
 			return new IceCreamImpl(config.p, config.w, variant, extras, config.f);			
 	};
 	
@@ -83,6 +83,17 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 		 */
 		public String getBaseFlavor() {
 			return null;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public C createEmptyConfig() {
+			return (C) new Config(basePrice, baseWeight, baseFlavor);
+		}
+
+		@Override
+		public F create(List<? extends Extra<? super C>> extras) {
+			return (F) IceCreamImpl.BUILDER.build(null, null, (List<? extends Extra<? super Config>>) extras);
 		}
 		
 	}
