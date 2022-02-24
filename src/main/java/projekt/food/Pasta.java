@@ -48,6 +48,7 @@ public interface Pasta extends Saucable {
 		double getBaseThickness();
 	}
     
+    //H2.13
     Pasta.Variant<Pasta,Pasta.Config> SPAGHETTI =
         new PastaImpl.Variant<>("Spaghetti",FoodTypes.PASTA, BigDecimal.valueOf(12.5),0.2,null,2);
     Pasta.Variant<Pasta,Pasta.Config> RIGATONI =
