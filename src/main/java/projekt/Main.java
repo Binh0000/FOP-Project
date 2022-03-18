@@ -9,6 +9,8 @@ public class Main {
 		//List of extras
 		List<? extends Extra<? super Pizza.Config>> pizzaExtras = 
 				Arrays.asList(Extras.EXTRA_HAM, Extras.NO_SAUCE, Extras.EXTRA_OLIVES);
+		List<? extends Extra<? super Pizza.Config>> pizzaExtras2 = 
+				Arrays.asList(Extras.EXTRA_SAUCE, Extras.SPICY_SAUCE);
 		List<? extends Extra<? super IceCream.Config>> iceCreamExtras = 
 				Arrays.asList(Extras.EXTRA_SCOOP, Extras.RAINBOW_SPRINKLES);
 		List<? extends Extra<? super Pasta.Config>> pastaExtras = Arrays.asList(
@@ -19,14 +21,16 @@ public class Main {
 		
 		//Create food		
 		Pizza pizza = Pizza.MARGHERITA.create(pizzaExtras);
+		Pizza pizza2 = Pizza.BBQ.create(pizzaExtras2);
 		IceCream iceCream = IceCream.VANILLA.create(iceCreamExtras);
 		Pasta pasta = Pasta.SPAGHETTI.create(pastaExtras);
 		Pasta pasta2 = Pasta.RAVIOLI.create(pastaExtras2);
-		Food[] arr = {pizza, iceCream, pasta, pasta2};
+		Food[] arr = {pizza, pizza2, pasta, pasta2, iceCream};
 		
 		//Print out result
 		for(Food f : arr) {
 			System.out.println("Food type: " + f.getFoodVariant().getFoodType().getName());
+			System.out.println("Food variant: " + f.getFoodVariant().getName());
 			System.out.println("Price: " + f.getPrice());
 			System.out.println("Weight: " + f.getWeight());
 			if(f instanceof Saucable) {
