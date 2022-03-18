@@ -70,7 +70,7 @@ abstract class AbstractFood implements Food {
 	}
 
 	/**
-	 * Implementation of the interface Food.Config
+	 * Implementation of {@link Food.Config}
 	 */
 	static class Config implements Food.Config {
 		BigDecimal p;
@@ -146,7 +146,13 @@ abstract class AbstractFood implements Food {
 					 					 (op1, op2) -> op1.compose(op2));
 		}
 	}
-
+	
+	/**
+	 * Implementation of {@link Food.Variant}
+	 * 
+     * @param <F> The target {@link Food} type
+     * @param <C> The target {@link Config} type
+	 */
 	static class Variant<F extends Food, C extends Food.Config> implements Food.Variant<F, C> {
 
 		String name;

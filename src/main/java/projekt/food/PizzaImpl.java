@@ -45,6 +45,9 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	}
 	
 	//TODO H2.5
+	/**
+	 * Extending class of {@link AbstractSaucable.Config}
+	 */
 	private static class Config extends AbstractSaucable.Config implements Pizza.Config {
 		
 		double d;
@@ -94,7 +97,13 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	}
 	
 	//TODO H2.12
-	static class Variant<F extends Pizza,C extends Pizza.Config> extends AbstractSaucable.Variant<F, C> implements Pizza.Variant<F, C> {
+	/**
+	 * Extending class of {@link AbstractSaucable.Variant}
+	 *
+     * @param <F> The target {@link Pizza} type
+     * @param <C> The target {@link Pizza.Config} type
+	 */
+	static class Variant<F extends Pizza, C extends Pizza.Config> extends AbstractSaucable.Variant<F, C> implements Pizza.Variant<F, C> {
 
 		double baseDiameter;
 		

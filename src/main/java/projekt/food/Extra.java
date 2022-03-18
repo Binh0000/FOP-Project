@@ -31,8 +31,9 @@ public interface Extra<C extends Food.Config> {
     void apply(C config);
     
     /**
-     * Sorts a list of {@link Config} per their priority and apply them to a given {@link Config}
-     * @param <C> generic type 
+     * Sorts a list of {@link Config} by their priority and apply them to an existing {@link Config}
+     * 
+     * @param <C> The target {@link Saucable.Config} type
      * @param config {@link Config} to apply to
      * @param extras list of {@link Config} to apply 
      */

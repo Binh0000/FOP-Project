@@ -43,6 +43,9 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 	}
 	
 	//TODO H2.5
+	/**
+	 * Extending class of {@link AbstractSaucable.Config}
+	 */
 	private static class Config extends AbstractSaucable.Config implements Pasta.Config {
 		
 		double t;
@@ -92,6 +95,12 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 	}
 	
 	//TODO H2.12
+	/**
+	 * Extending class of {@link AbstractSaucable.Variant}
+	 * 
+     * @param <F> The target {@link Pasta} type
+     * @param <C> The target {@link Pasta.Config} type
+	 */
 	static class Variant<F extends Pasta, C extends Pasta.Config> extends AbstractSaucable.Variant<F, C> implements Pasta.Variant<F, C> {
 		
 		double baseThickness;
@@ -121,7 +130,8 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 			return baseThickness;
 		}		
         
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         /**
          * Creates an empty {@link Config} for this variant.
          *
@@ -131,7 +141,8 @@ class PastaImpl extends AbstractSaucable implements Pasta {
             return (C) new Config(basePrice,baseWeight,baseSauce,baseThickness);
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         /**
          * Creates a new instance of {@link Food} described by this variant, its base values and modifications defined by 
          * the provided list of {@link Extra Extras}.

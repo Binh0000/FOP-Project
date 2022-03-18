@@ -1,6 +1,9 @@
 package projekt.base;
 
 @FunctionalInterface
+/**
+ * Calculates the distance between 2 Locations
+ */
 public interface DistanceCalculator {
 	/**
 	 * Calculates the distance between 2 Locations

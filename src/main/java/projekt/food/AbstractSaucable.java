@@ -33,6 +33,9 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		return sauce;
 	}
 	
+	/**
+	 * Extending class of {@link AbstractFood.Config}
+	 */
 	static class Config extends AbstractFood.Config implements Saucable.Config {
 		
 		String s;
@@ -80,6 +83,12 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		}
 	}
 	
+	/**
+	 * Extending class of {@link AbstractFood.Variant}
+	 *
+     * @param <F> The target {@link Saucable} type
+     * @param <C> The target {@link Saucable.Config} type
+	 */
 	static class Variant<F extends Saucable, C extends Saucable.Config> 
 						extends AbstractFood.Variant<F, C> implements Saucable.Variant<F, C> {
 		String baseSauce;

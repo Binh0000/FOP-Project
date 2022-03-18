@@ -2,6 +2,9 @@ package projekt.food;
 import java.math.BigDecimal;
 import java.util.function.UnaryOperator;
 
+/**
+ * An immutable, configured ice cream.
+ */
 public interface IceCream extends Food {
 	
 	//TODO H2.1
@@ -39,6 +42,9 @@ public interface IceCream extends Food {
 	
 	/**
 	 * A specific but not yet complete variant of Ice cream; e.g.: Ice cream cone, stick, bowl,...
+	 * 
+	 * @param <F> The target {@link IceCream} type
+     * @param <C> The target {@link IceCream.Config} type
 	 */
 	interface Variant<F extends IceCream, C extends IceCream.Config> extends Food.Variant<F, C> {
 		

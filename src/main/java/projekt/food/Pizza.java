@@ -2,6 +2,9 @@ package projekt.food;
 import java.math.BigDecimal;
 import java.util.function.DoubleUnaryOperator;
 
+/**
+ * An immutable, configured pizza.
+ */
 public interface Pizza extends Saucable {	
 	
 	//TODO H2.1
@@ -39,6 +42,9 @@ public interface Pizza extends Saucable {
 	
 	/**
 	 * A specific but not yet complete variant of Pizza; e.g.: Italian pizza, American pizza,... 
+	 * 
+	 * @param <F> The target {@link Pizza} type
+     * @param <C> The target {@link Pizza} type
 	 */
 	interface Variant<F extends Pizza, C extends Pizza.Config> extends Saucable.Variant<F, C> {
 		

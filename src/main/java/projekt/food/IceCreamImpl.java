@@ -37,6 +37,9 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 	}
 	
 	//TODO H2.5
+	/**
+	 * Extending class of {@link AbstractFood.Config}
+	 */
 	private static class Config extends AbstractFood.Config implements IceCream.Config {
 		
 		String f;
@@ -85,6 +88,12 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 	}
 	
 	//TODO H2.12
+	/**
+	 * Extending class of {@link AbstractFood.Variant}
+	 *
+     * @param <F> The target {@link IceCream} type
+     * @param <C> The target {@link IceCream.Config} type
+	 */
 	static class Variant<F extends IceCream, C extends IceCream.Config> 
 						extends AbstractFood.Variant<F, C> implements IceCream.Variant<F, C> {
 		
@@ -114,7 +123,8 @@ class IceCreamImpl extends AbstractFood implements IceCream {
 			return baseFlavor;
 		}
         
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         /**
          * Creates an empty {@link Config} for this variant.
          *
@@ -124,7 +134,8 @@ class IceCreamImpl extends AbstractFood implements IceCream {
             return (C) new IceCreamImpl.Config(basePrice,baseWeight,baseFlavor);
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
+		@Override
         /**
          * Creates a new instance of {@link Food} described by this variant, its base values and modifications defined by 
          * the provided list of {@link Extra Extras}.

@@ -2,6 +2,9 @@ package projekt.food;
 
 import java.util.function.UnaryOperator;
 
+/**
+ * An immutable, configured dish with sauce.
+ */
 public interface Saucable extends Food {
 	
 	//TODO H2.1	
