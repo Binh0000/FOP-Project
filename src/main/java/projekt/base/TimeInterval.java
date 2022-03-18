@@ -1,6 +1,7 @@
 package projekt.base;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //TODO H1.3
 public class TimeInterval {
@@ -27,12 +28,14 @@ public class TimeInterval {
 		this.end = end;
 	}
 	
+     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm");
+    
 	/**
 	 * Returns the time at the start of the interval
 	 * @return start start of interval
 	 */
 	public LocalDateTime getStart() {
-		return start;
+		return start.parse(start.toString(),formatter);
 	}
 	
 	/**
@@ -40,7 +43,7 @@ public class TimeInterval {
 	 * @return end end of interval
 	 */
 	public LocalDateTime getEnd() {
-		return end;
+		return end.parse(start.toString(),formatter);
 	}
 	
 	/**
