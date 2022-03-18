@@ -43,7 +43,7 @@ public class TimeInterval {
 	 * @return end end of interval
 	 */
 	public LocalDateTime getEnd() {
-		return end.parse(start.toString(),formatter);
+		return end.parse(end.toString(),formatter);
 	}
 	
 	/**
