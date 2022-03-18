@@ -51,6 +51,6 @@ public class TimeInterval {
 	 * @return
 	 */
 	public Duration getDuration() {
-		return Duration.between(start, end);		
+		return Duration.between(getStart(), getEnd());		
 	}
 }
