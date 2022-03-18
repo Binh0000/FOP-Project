@@ -21,11 +21,11 @@ public final class FoodTypes {
 				Arrays.asList(Extras.EXTRA_HAM, Extras.EXTRA_OLIVES, 
 						Extras.SPICY_SAUCE, Extras.EXTRA_SAUCE, Extras.NO_SAUCE));
 		
-		PASTA = new FoodTypeImpl<Pasta, Pasta.Config>("Pizza",
+		PASTA = new FoodTypeImpl<Pasta, Pasta.Config>("Pasta",
 				Arrays.asList(Extras.EXTRA_THICK, Extras.SPICY_SAUCE,
 						Extras.EXTRA_SAUCE, Extras.NO_SAUCE));
 		
-		ICE_CREAM = new FoodTypeImpl<IceCream, IceCream.Config>("Pizza",
+		ICE_CREAM = new FoodTypeImpl<IceCream, IceCream.Config>("Ice Cream",
 				Arrays.asList(Extras.RAINBOW_SPRINKLES, Extras.EXTRA_SCOOP));
 		
 		ALL = Arrays.asList(PIZZA, PASTA, ICE_CREAM)

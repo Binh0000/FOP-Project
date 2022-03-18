@@ -56,7 +56,7 @@ public final class Extras {
 				new Consumer<Food.Config>() {
 					public void accept(Food.Config t) {
 						t.price(p -> BigDecimal.valueOf(p.doubleValue() + 0.5));
-						((Saucable.Config) t).sauce(s -> "Spicy " + s);
+						((Saucable.Config) t).sauce(s -> (s != null)? "Spicy " + s : "Spicy Sauce");
 					}
 				}
 		);
@@ -66,7 +66,7 @@ public final class Extras {
 					public void accept(Food.Config t) {
 						t.price(p -> BigDecimal.valueOf(p.doubleValue() + 1.25));
 						t.weight(w -> w + 0.12);
-						((Saucable.Config) t).sauce(s -> "Extra " + s);
+						((Saucable.Config) t).sauce(s -> (s != null)? "Extra " + s : "Extra Sauce");
 					}
 				}
 		);
@@ -74,8 +74,8 @@ public final class Extras {
 		NO_SAUCE = new ExtraImpl<Saucable.Config>("No Sauce", 5,
 				new Consumer<Food.Config>() {
 					public void accept(Food.Config t) {
-						t.price(p -> BigDecimal.valueOf(p.doubleValue() <= 1? 0.0 : p.doubleValue() - 1));
-						t.weight(w -> w <= 0.1? 0.0 : w - 0.1);
+						t.price(p -> BigDecimal.valueOf((p.doubleValue() <= 1)? 0.0 : p.doubleValue() - 1));
+						t.weight(w -> (w <= 0.1)? 0.0 : w - 0.1);
 						((Saucable.Config) t).sauce(s -> null);
 					}
 				}

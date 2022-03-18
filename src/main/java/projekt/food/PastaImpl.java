@@ -10,6 +10,7 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 	//TODO H2.11
 	static final FoodBuilder<PastaImpl, Config, Variant<PastaImpl, Config>> BUILDER =
 		(Config config, Variant<PastaImpl, Config> variant, List<? extends Extra<Config>> extras) -> {
+			Extra.writeToConfig(config, extras);
 			return new PastaImpl(config.p, config.w, variant, extras, config.s, config.t);
 	};
 
@@ -49,12 +50,12 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 		private List<DoubleUnaryOperator> thicknessMutators = new ArrayList<>();
 		
 		/**
+		 * Constructs a {@link Config} object 
 		 * 
-		 * 
-		 * @param p
-		 * @param w
-		 * @param s
-		 * @param t
+		 * @param p price
+		 * @param w weight
+		 * @param s sauce
+		 * @param t thickness
 		 */
 		Config(BigDecimal p, double w, String s, double t) {			
 			super(p, w, s);
@@ -62,18 +63,27 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 		}
 
 		@Override
-		/**
-		 * 
-		 */
+        /**
+         * Concatenates the result of all previous calls to this method with the provided {@code thicknessMutator}.
+         *
+         * @param thicknessMutator A {@link DoubleUnaryOperator} which determines a new thickness based on the previous value
+         */
 		public void thickness(DoubleUnaryOperator thicknessMutator) {
 			t = thicknessMutator.applyAsDouble(t);
 			thicknessMutators.add(thicknessMutator);			
 		}
 
 		@Override
-		/**
-		 * 
-		 */
+        /**
+         * The thickness mutator accepts a base thickness and produces a configured thickness.
+         *
+         * <p>
+         * The function returned by this method is the result of concatenating all previous inputs into the
+         * {@link #thickness(DoubleUnaryOperator)} method.
+         * </p>
+         *
+         * @return The thickness mutation function
+         */
 		public DoubleUnaryOperator getThicknessMutator() {
 			return thicknessMutators.stream()														  
 		 			 .reduce((n -> n),
@@ -87,13 +97,14 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 		double baseThickness;
 		
 		/**
-		 * 
-		 * @param name
-		 * @param foodType
-		 * @param basePrice
-		 * @param baseWeight
-		 * @param baseSauce
-		 * @param baseThickness
+		 * Constructs a {@link Variant} of a pasta with its name and base price, weight, sauce and thickness
+		 *
+		 * @param name The name of this pasta variant
+		 * @param foodType the food type in which this variant is grouped
+		 * @param basePrice the base price of this pasta variant
+		 * @param baseWeight the base weight of this pasta variant
+		 * @param baseSauce the base sauce of this pasta variant
+		 * @param baseThickness the base thickness of this pasta variant
 		 */
 		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight, String baseSauce, double baseThickness) {
 			super(name, foodType, basePrice, baseWeight, baseSauce);
@@ -102,27 +113,32 @@ class PastaImpl extends AbstractSaucable implements Pasta {
 
 		@Override
 		/**
+		 * The base thickness of variant noodles
 		 * 
+		 * @return The base thickness of variant noodles
 		 */
 		public double getBaseThickness() {
 			return baseThickness;
 		}		
         
-        /**
-         * 
-         * @return
-         */
         @Override
+        /**
+         * Creates an empty {@link Config} for this variant.
+         *
+         * @return An empty {@link Config} for this variant
+         */
         public C createEmptyConfig() {
             return (C) new Config(basePrice,baseWeight,baseSauce,baseThickness);
         }
 
-        /**
-         * 
-         * @param extras The list of {@link Extra Extras} to configure the resultant {@link Food}
-         * @return
-         */
         @Override
+        /**
+         * Creates a new instance of {@link Food} described by this variant, its base values and modifications defined by 
+         * the provided list of {@link Extra Extras}.
+         *
+         * @param extras The list of {@link Extra Extras} to configure the resultant {@link Food}
+         * @return An instance of {@link Food} based on the values from this variant and configured by the provided extras
+         */
         public F create(List<? extends Extra<? super C>> extras) {
             return (F) PastaImpl.BUILDER.build((Config) createEmptyConfig(), 
                                                (Variant<PastaImpl, Config>) this, 

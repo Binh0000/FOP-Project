@@ -1,6 +1,7 @@
 package projekt.food;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
@@ -36,26 +37,42 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		
 		String s;
 		
-		List<UnaryOperator<String>> sauceMutators;
+		List<UnaryOperator<String>> sauceMutators = new ArrayList<>();;
 		
+		/**
+		 * Constructs a {@link Config} object 
+		 * 
+		 * @param p price
+		 * @param w weight
+		 * @param s sauce
+		 */
 		Config(BigDecimal p, double w, String s) {
 			super(p, w);
 			this.s = s;
 		}	
 		
 		@Override
-		/**
-		 * 
-		 */
+        /**
+         * Concatenates the result of all previous calls to this method with the provided {@code saucetMutator}.
+         *
+         * @param sauceMutator A {@link UnaryOperator} which determines a new sauce based on the previous value
+         */
 		public void sauce(UnaryOperator<String> sauceMutator) {
 			s = sauceMutator.apply(s);
 			sauceMutators.add(sauceMutator);			
 		}
 
 		@Override
-		/**
-		 * 
-		 */
+        /**
+         * The sauce mutator accepts a base sauce and produces a configured sauce.
+         *
+         * <p>
+         * The function returned by this method is the result of concatenating all previous inputs into the
+         * {@link #sauce(UnaryOperator)} method.
+         * </p>
+         *
+         * @return The sauce mutation function
+         */
 		public UnaryOperator<String> getSauceMutator() {
 			return sauceMutators.stream()
 								.reduce((n -> n), 
@@ -68,12 +85,13 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		String baseSauce;
 		
 		/**
+		 * Constructs a {@link Variant} of a food with its name and base price and weight
 		 * 
-		 * @param name
-		 * @param foodType
-		 * @param basePrice
-		 * @param baseWeight
-		 * @param baseSauce
+		 * @param name The name of this food variant
+		 * @param foodType the food type in which this variant is grouped
+		 * @param basePrice the base price of this food variant
+		 * @param baseWeight the base weight of this food variant
+		 * @param baseSauce the base sauce of this food variant
 		 */
 		Variant(String name, FoodType<F, C> foodType, BigDecimal basePrice, double baseWeight, String baseSauce) {
 			super(name, foodType, basePrice, baseWeight);
@@ -81,6 +99,11 @@ abstract class AbstractSaucable extends AbstractFood implements Saucable {
 		}
 
 		@Override
+        /**
+         * The base sauce of this variant
+         *
+         * @return The base sauce of this variant
+         */
 		public String getBaseSauce() {
 			return baseSauce;
 		}	
