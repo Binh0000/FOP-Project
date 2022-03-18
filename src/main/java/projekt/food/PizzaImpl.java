@@ -51,7 +51,6 @@ class PizzaImpl extends AbstractSaucable implements Pizza {
 	private static class Config extends AbstractSaucable.Config implements Pizza.Config {
 		
 		double d;
-		double w = super.w;
 		
 		private List<DoubleUnaryOperator> diameterMutators = new ArrayList<>();
 		

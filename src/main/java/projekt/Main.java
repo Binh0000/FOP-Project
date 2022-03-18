@@ -1,5 +1,6 @@
 package projekt;
 
+import java.math.BigDecimal;
 import java.util.*;
 import projekt.food.*;
 
@@ -52,5 +53,7 @@ public class Main {
 			}
 			System.out.println('\n');
 		}		
+		
+		System.out.println(BigDecimal.valueOf(pizza2.getWeight()));
 	}
 }
