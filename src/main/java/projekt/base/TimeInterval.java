@@ -1,7 +1,7 @@
 package projekt.base;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Month;
 
 //TODO H1.3
 public class TimeInterval {
@@ -27,15 +27,13 @@ public class TimeInterval {
 		this.start = start;
 		this.end = end;
 	}
-	
-     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm");
     
 	/**
 	 * Returns the time at the start of the interval
 	 * @return start start of interval
 	 */
 	public LocalDateTime getStart() {
-		return start.parse(start.toString(),formatter);
+		return start;
 	}
 	
 	/**
@@ -43,14 +41,14 @@ public class TimeInterval {
 	 * @return end end of interval
 	 */
 	public LocalDateTime getEnd() {
-		return end.parse(end.toString(),formatter);
+		return end;
 	}
 	
 	/**
 	 * Returns the time interval between start and end
-	 * @return
+	 * @return the time interval between start and end
 	 */
 	public Duration getDuration() {
-		return Duration.between(getStart(), getEnd());		
+		return Duration.between(start.withSecond(0).withNano(0), end.withSecond(0).withNano(0));
 	}
 }
