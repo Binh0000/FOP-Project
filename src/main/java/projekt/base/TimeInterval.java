@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public class TimeInterval {
 	private final LocalDateTime start;
 	private final LocalDateTime end;
-
 	
 	/**
 	 * Constructs a TimeInterval object representing a time interval

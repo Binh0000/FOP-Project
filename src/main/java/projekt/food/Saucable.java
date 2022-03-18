@@ -2,6 +2,9 @@ package projekt.food;
 
 import java.util.function.UnaryOperator;
 
+/**
+ * An immutable, configured dish with sauce.
+ */
 public interface Saucable extends Food {
 	
 	//TODO H2.1	
@@ -16,19 +19,24 @@ public interface Saucable extends Food {
      * base values of a {@link Variant} into a concrete instance of {@link Saucable}.
 	 */
 	interface Config extends Food.Config {
-		/**
-		 * Configures the sauce attribute of a food and concatenates the result 
-		 * of all previous calls to this method using {@code sauceMutator}
-		 * 
-		 * @param sauceMutator a {@link UnaryOperator} to configure the sauce using its previous value
-		 */
+		
+        /**
+         * Concatenates the result of all previous calls to this method with the provided {@code saucetMutator}.
+         *
+         * @param sauceMutator A {@link UnaryOperator} which determines a new sauce based on the previous value
+         */
 		void sauce(UnaryOperator<String> sauceMutator);
 		
-		/**
-		 * Compose all parameters from previous calls of {@link #price(UnaryOperator)} to a single
-		 * {@link UnaryOperator}
-		 * @return composed sauce mutator function
-		 */
+        /**
+         * The sauce mutator accepts a base sauce and produces a configured sauce.
+         *
+         * <p>
+         * The function returned by this method is the result of concatenating all previous inputs into the
+         * {@link #sauce(UnaryOperator)} method.
+         * </p>
+         *
+         * @return The sauce mutation function
+         */
 		UnaryOperator<String> getSauceMutator();
 	}
 	

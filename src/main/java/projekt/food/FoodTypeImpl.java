@@ -65,5 +65,4 @@ class FoodTypeImpl<F extends Food, C extends Food.Config> implements FoodType<F,
 		return foodVariants;
 	}
 
-
 }

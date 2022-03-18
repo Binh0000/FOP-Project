@@ -31,10 +31,11 @@ public interface Extra<C extends Food.Config> {
     void apply(C config);
     
     /**
-     * Sorts a list of...
-     * @param <C>
-     * @param Config
-     * @param extras
+     * Sorts a list of {@link Config} by their priority and apply them to an existing {@link Config}
+     * 
+     * @param <C> The target {@link Saucable.Config} type
+     * @param config {@link Config} to apply to
+     * @param extras list of {@link Config} to apply 
      */
     static <C extends Food.Config> void writeToConfig(C config, List<? extends Extra<C>> extras) {
     	List<? extends Extra<C>> sorted = 
